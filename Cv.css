@@ -4,7 +4,7 @@ html {
 	-ms-text-size-adjust:     100%;
 }
 
-body {
+body, #site {
 	margin: 0;
 }
 
@@ -14,7 +14,6 @@ img {
 	width: 100%;
 	height: auto;
 }
-
 
 /*--------------------------------------------------------------
 Accessibility
@@ -119,9 +118,9 @@ h1 {
   background-color: #f5ebe0
 }
 
-.main-content {
+.main-content, .aside {
   background: white;
-  padding: 2em;
+  padding: 0;
 
 }
 
@@ -145,15 +144,9 @@ h1 {
 
 }
 
-.skills-list li {
-  margin: .1em 0;
-  padding: 0.2em 0;
-  text-align: center;
-}
-
-.languages-list  li {
-  margin: .1em 0;
-  padding: 0.2em 0;
+.skills-list li,
+.languages-list li {
+  margin: 5px 0;
   text-align: center;
 }
 
@@ -178,8 +171,32 @@ footer {
   padding: 1em 2em;
   background: #272427;
   color: white;
-font-weight: normal;
+  font-weight: normal;
   text-align: center;
+}
+
+.masthead {
+  grid-area: header;
+}
+        
+#edu {
+  grid-area: edu;
+}
+
+#exp {
+    grid-area: exp;
+}
+        
+#skills {
+  grid-area: skills;
+}
+
+#languages {
+    grid-area: lang;
+}
+		    
+footer {
+  grid-area: footer;
 }
 
 
@@ -189,20 +206,20 @@ If no grid support, limit width to 50em and center align
 @supports not (display: grid) {
   .experience,
   .main-content,
-  .sidebar {
+  .aside {
 		max-width: 50em;
 		margin: 0 auto;
 	}
 }
 
 /*--------------------------------------------------------------
-CSS Grid layout for wider screens, when browser supports grid:
+CSS Grid layout for wider screens, when browser does not supports grid:
 --------------------------------------------------------------*/
 
 @supports not (display: grid) {
-	.experience,
+  .experience,
   .main-content,
-  .sidebar {
+  .aside {
 		max-width: 50em;
 		margin: 0 auto;
 	}
@@ -213,48 +230,53 @@ CSS Grid layout for wider screens, when browser supports grid:
 --------------------------------------------------------------*/
 
 @supports (display: grid) {
-  @media screen and (min-width: 800px) {
+  @media screen and (max-width: 1020px) {
     
-  	.site {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-            grid-template-rows: auto 1fr 3fr;
-            grid-template-areas:
-        "content-head content-head"
-        "main header"
-        "main sidebar"
-        "footer footer";
-		}
-    
-    .masthead {
-      grid-area: header;
+    #site {
+      max-height: 50em;
     }
+  	#site {
+		display: grid;
+		grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr 2fr 2fr 2fr 1fr 50px;
+        grid-template-areas:
+            "header"
+            "exp"
+            "edu"
+            "skills"
+            "lang"
+            "footer";
+    	}
+  }
     
-    .experience {
-      grid-area: content-head;
+  @media screen and (min-width: 1800px) {
+    #site {
+	   margin: 0 5%;
     }
-    
-    .main-content {
-      grid-area: main;
+  	#site {
+		display: grid;
+		grid-template-columns: 2fr 1fr;
+        grid-template-rows: auto 2fr 2fr 150px;
+        grid-template-areas:
+            "header header"
+            "exp skills"
+            "edu lang"
+            "footer footer";
+    	}
     }
-    
-    .sidebar {
-      grid-area: sidebar;
-    }
-		
-    .colophon {
-      grid-area: footer;
-    }
-    
-	}
   
-  @media screen and (min-width: 1200px) {
-    .site {
-			grid-template-columns: 2fr 1fr 1fr;
+  @media screen and (min-width: 2300px) {
+    #site {
+	   margin: 0 15%;
+    }
+    #site {
+	  grid-template-columns: 2fr 2fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
       grid-template-areas:
-        "content-head content-head content-head"
-        "main header header"
-        "main sidebar footer";
+        "exp exp header"
+        "edu edu header"
+        "skills lang header"
+        "footer footer footer";
 		}
   }
 }
