@@ -1,2 +1,2 @@
 # Grid-exercise
-Grid layout exercise
+Grid layout exercise - CV example
